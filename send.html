@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--CSS-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/balance.css" rel="stylesheet">
+    <link href="css/entypo.css" rel="stylesheet">
+
+    <!--JS-->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="main.html"><span id="create-wallet">Create Wallet</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="na-link" href="import.html"><span id="import-wallet">Import Wallet</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="balance.html"><span id="your-wallet">Your Wallet</span></a>
+        </li>
+
+        <li class="nav-item active">
+            <a class="nav-link" href="send.html"><span id="send">Send</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="history" href="#" target="_blank"><span id="tx-history">History</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="chaininfo.html"><span id="chain-info">Chain info</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="settings.html"><span id="settings">Settings</span></a>
+        </li>
+    </ul>
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs" style="margin-top: 5px; margin-bottom: 5px;">
+                <li class="nav-item mr-2">
+                    <a class="nav-link active" data-toggle="tab" href="#sendAok">Send AOK</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#sendToken">Send Token</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div class="tab-content">
+                <div class="tab-pane" id="sendAok">
+                    <label for="sendInput" id="send-to">Send To: </label>
+                    <div class="container text-center">
+                        <input type="text" class="form-control docs-input" id="sendInputAOK" placeholder="">
+                    </div>
+                    <label for="amountAOK" id="amount-aok">Amount: </label>
+                    <div class="container text-center">
+                        <div class="sendAmount" style="padding-bottom: 5px;">
+                            <input type="text" class="form-control docs-input" id="amountAOK" placeholder="100">
+                            <p></p>
+                            <input type="text" class="form-control docs-input" id="sendAOKfee" placeholder="">
+                        </div>
+                    </div>
+                    <p style="text-align: center;"><span id="showErrororSuccess"></span></p>
+                    <div class="container text-center">
+                        <button class="btn btn-primary" id="sendTx" style="width: 100%;">Send Transaction</button>
+                    </div>
+                </div>
+                <div class="tab-pane" id="sendToken">
+                    <label for="sendInput" id="send-to">Send To: </label>
+                    <div class="container text-center">
+                        <input type="text" class="form-control docs-input" id="sendInputToken" placeholder="">
+                    </div>
+                    <label for="amountToken" id="amount-aok">Amount: </label>
+                    <div class="sendAmount" style="padding-bottom: 5px; display: flex;">
+                        <div id="inputamount" style="flex: 0 0 82%; margin-left: 15px;">
+                            <input type="text" class="form-control docs-input" id="amountToken" placeholder="10">
+                        </div>
+                        <div id="chooseToken" style="flex: 1; margin-left: 10px; width: 100%;">
+                            <div class="input-group">
+                                <select class="form-control" id="tokenSelect">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container text-center">
+                        <input type="text" class="form-control docs-input" id="sendTokenFee" placeholder="">
+                    </div>
+                    <p style="text-align: center;"><span id="showErrororSuccessToken"></span></p>
+                    <div class="container text-center">
+                        <button class="btn btn-primary" id="sendTokenTx" style="width: 100%;">Send Transaction</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<footer class="mb-3" style="bottom: 0px;">
+    <div class="container text-center">
+        <h5><span id="part1">Remember to</span> <a href="settings.html" id="logoutlink">Logout</a> <span id="part2">before exiting Chrome</span></h5>
+        <h6>Made with <span class="entypo heart text-danger" style="font-size: 20px;"></span> by <a target="_blank" href="https://github.com/Nugetzrul3/Sugarchain-Chrome-Wallet">Nugetzrul3</a></h6>
+    </div>
+</footer>
+<script src="js/bitcoin.min.js"></script>
+<script src="js/send.js"></script>
+</html>

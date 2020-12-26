@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--CSS-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/entypo.css" rel="stylesheet">
+
+    <!--JS-->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+    <ul class="nav nav-tabs">
+        <li class="nav-item active">
+            <a class="nav-link" href="main.html"><span id="create-wallet"></span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="na-link" href="import.html"><span id="import-wallet"></span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="balance.html"><span id="your-wallet"></span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="send.html"><span id="send"></span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="history" href="#" target="_blank"><span id="tx-history"></span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="chaininfo.html"><span id="chain-info"></span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="settings.html"><span id="settings"></span></a>
+        </li>
+    </ul>
+
+    <div class="form-group">
+        <label for="addressType" id="addressTypeLabel"></label>
+        <div class="container text-center">
+            <select class="form-control" id="addressType">
+                <option>Legacy</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="container text-center">
+        <button class="btn btn-primary" style="width: 100%;" id="generateAddress"></button>
+    
+        <div class="displayAddress">
+            <span id="your-address"></span> <span id="addressDisplay"></span>
+        </div>
+
+        <div class="displayWIF">
+            <span id="your-wif"></span> <span id="wifDisplay"></span>
+        </div>
+    </div>
+    <p style="text-align: center; font-weight: 700;" id="importantmsg"></p>
+</body>
+<footer class="mb-3" style="bottom: 0px;">
+    <div class="container text-center">
+        <h5><span id="part1">Remember to</span> <a href="settings.html" id="logoutlink">Logout</a> <span id="part2">before exiting Chrome</span></h5>
+        <h6>Made with <span class="entypo heart text-danger" style="font-size: 20px;"></span> by <a target="_blank" href="https://github.com/Nugetzrul3/Sugarchain-Chrome-Wallet">Nugetzrul3</a></h6>
+    </div>
+</footer>
+<!--Wallet Code-->
+<script src="js/bitcoin.min.js"></script>
+<script src="js/main.js"></script>
+</html>
