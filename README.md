@@ -1,5 +1,5 @@
 # AokChain-Chrome-Wallet
-Light sugarchain Web wallet in the form of a chrome extension which utilises bitcoin.js and a simple REST API https://api.sugarchain.org
+Light AokChain Web wallet in the form of a chrome extension which utilises bitcoin.js and a simple REST API https://api.aok.network
 
 
 ### Installation
