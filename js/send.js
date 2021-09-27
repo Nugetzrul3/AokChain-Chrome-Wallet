@@ -220,17 +220,20 @@ $("#sendTokenTx").click(function () {
    
     wif = bitcoin.ECPair.fromWIF(wifKey, netconfig['network'])
 
-    getDecimals().then(function (data) {
-        var units = 0
+    getTokens().then(function (data) {
+        tokens = []
+
         for (var i = 0; i < data.result.tokens.length; i++) {
-            var token = data.result.tokens[i]
-            if (token.tokenName == name) {
-                units = token.units
-            }
+            tokens.push(data.result.tokens[i].tokenName)
         }
 
-        var tokenAmount = convertAmountFormat(parseFloat($("#amountToken").val()), true, units)
-        var tokenAmountShow = convertAmountFormat(tokenAmount, false, units)
+        if (!tokens.includes(name)) {
+            showErrororSuccess.text("You do not have that token")
+            return
+        }
+
+        var tokenAmount = convertAmountFormat(parseFloat($("#amountToken").val()), true, 8)
+        var tokenAmountShow = convertAmountFormat(tokenAmount, false, 8)
 
         if (!validateAddress(receiver)) {
             alert("You have not specified an address to send to")
@@ -243,21 +246,15 @@ $("#sendTokenTx").click(function () {
             showErrororSuccess.text("Sending Transaction...")
 
             var hashType = bitcoin.Transaction.SIGHASH_ALL
-            var tokenscripts = []
-            var aokscripts = []
+            var scripts = []
 
             var txbuilder = new bitcoin.TransactionBuilder(netconfig["network"])
             txbuilder.setVersion(1)
 
-            if (name == "CCA") {
-                txbuilder.addOutput(receiver, tokenAmount)
-            }
-            else {
-                txbuilder.addOutput(tokenOutput(receiver, {
-                    "name": name, 
-                    "amount": tokenAmount
-                }), 0)
-            }
+            txbuilder.addOutput(tokenOutput(receiver, {
+                "name": name, 
+                "amount": tokenAmount
+            }), 0)
 
             var txvaluetoken = 0
             var txvalueaok = 0
@@ -265,7 +262,7 @@ $("#sendTokenTx").click(function () {
             var promises = [
                 netInfo(),
                 tokenUnspent(address, tokenAmount, name),
-                AOKUnspent(address, 100000000 + fee)
+                AOKUnspent(address, fee)
             ]
 
             Promise.all(promises).then(function (values) {
@@ -273,41 +270,47 @@ $("#sendTokenTx").click(function () {
                 var tokenutxo = values[1]
                 var aokutxo = values[2]
 
-                for (var i = 0; i < tokenutxo.result.length; i++) {
+                for (var i = 0; i < aokutxo.result.length; i++) {
                     var timestamp = parseInt(Date.now() / 1000)
-                    var utxo = tokenutxo.result[i]
+                    var utxo = aokutxo.result[i]
                     var txid = utxo.txid
                     var index = utxo.index
                     var script = bitcoin.Buffer(utxo.script, "hex")
-                    txvaluetoken += utxo.value
+                    txvalueaok += utxo.value
 
-                    if (name == "CCA") {
-                        var decode = bitcoin.script.decompile(script)
+                    var decode = bitcoin.script.decompile(script)
 
-                        if (decode.includes(bitcoin.opcodes.OP_CHECKLOCKTIMEVERIFY)) {
-                            if (Buffer.isBuffer(decode[0])) {
-                                if (decode[0].readUIntLE(0, decode[0].length) <= 50000000) {
-                                    txbuilder.setLockTime(network.result.blocks)
-                                }
-                                else {
-                                    txbuilder.setLockTime(timestamp)
-                                }
-                            }
-                            else {
+                    if (decode.includes(bitcoin.opcodes.OP_CHECKLOCKTIMEVERIFY)) {
+                        if (Buffer.isBuffer(decode[0])) {
+                            if (decode[0].readUIntLE(0, decode[0].length) <= 50000000) {
                                 txbuilder.setLockTime(network.result.blocks)
                             }
-
-                            txbuilder.addInput(txid, index, 0xfffffffe)
+                            else {
+                                txbuilder.setLockTime(timestamp)
+                            }
                         }
                         else {
-                            txbuilder.addInput(txid, index)
+                            txbuilder.setLockTime(network.result.blocks)
                         }
+
+                        txbuilder.addInput(txid, index, 0xfffffffe)
                     }
                     else {
                         txbuilder.addInput(txid, index)
                     }
 
-                    tokenscripts.push(script)
+                    scripts.push(script)
+                }
+
+                for (var i = 0; i < tokenutxo.result.length; i++) {
+                    var utxo = tokenutxo.result[i]
+                    var script = bitcoin.Buffer(utxo.script, "hex")
+                    var txid = utxo.txid
+                    var index = utxo.index
+                    txvaluetoken += utxo.value
+
+                    txbuilder.addInput(txid, index)
+                    scripts.push(script)
                 }
 
                 var send = true
@@ -323,63 +326,24 @@ $("#sendTokenTx").click(function () {
                 if (send) {
 
                     if (txchangetoken > 0) {
-                        if (name == "CCA") {
-                            txbuilder.addOutput(address, txchangetoken)
-                        }
-                        else {
-                            txbuilder.addOutput(tokenOutput(address, {
-                                "name": name,
-                                "amount": txchangetoken
-                            }), 0)
-                        }
+                        txbuilder.addOutput(tokenOutput(address, {
+                            "name": name,
+                            "amount": txchangetoken
+                        }), 0)
                     }
 
-                    console.log(aokutxo)
-                    console.log(aokutxo.result.length)
-
-                    for (var i = 0; i < aokutxo.result.length; i++) {
-                        var utxo = aokutxo.result[i]
-                        console.log(i)
-                        var txid = utxo.txid
-                        var index = utxo.index
-                        var script = bitcoin.Buffer(utxo.script, "hex")
-                        var typeofaddress = scriptType(script)
-                        txvalueaok += utxo.value
-
-                        if (typeofaddress == "bech32") {
-                            var bech32script = bitcoin.payments.p2wpkh({'pubkey': wif.publicKey, 'network': netconfig['network']})
-
-                            txbuilder.addInput(txid, index, null, bech32script.output)
-                        }
-                        else {
-                            txbuilder.addInput(txid, index)
-                        }
-
-                        aokscripts.push({'script': script, 'type': typeofaddress, 'value': utxo.value})
-                    }
-
-                    if (txvalueaok >= 100000000 + fee) {
-                        var txchangeaok = txvalueaok - (100000000 + fee)
+                    if (txvalueaok >= fee) {
+                        var txchangeaok = txvalueaok - fee
 
                         if (txchangeaok > 0) {
                             txbuilder.addOutput(address, txchangeaok)
                         }
-                    
-
-                        for (var i = 0; i < aokscripts.length; i++) {
-                            switch (aokscripts[i].type) {
-                                case 'legacy':
-                                    txbuilder.sign(i, wif)
-                                    break
-                                default:
-                                    showErrororSuccess.text("Bad UTXO")
-                            }
-                        }
 
                         var inctx = txbuilder.buildIncomplete()
 
-                        for (var i = 0; i < tokenscripts.length; i++) {
-                            const sigHash = inctx.hashForSignature(i, tokenscripts[i], hashType)
+                        for (var i = 0; i < scripts.length; i++) {
+                            console.log(i)
+                            const sigHash = inctx.hashForSignature(i, scripts[i], hashType)
                             const keys = bitcoin.ECPair.fromWIF(wifKey, netconfig['network'])
 
                             inctx.setInputScript(i, bitcoin.script.compile([
@@ -387,6 +351,8 @@ $("#sendTokenTx").click(function () {
                                 keys.publicKey
                             ]))
                         }
+
+                        console.log(inctx)
 
                         Promise.resolve($.ajax({
                             url: api + "/broadcast",
@@ -408,6 +374,7 @@ $("#sendTokenTx").click(function () {
                     else {
                         showErrororSuccess.text(errororsuccess['error']['funds'])
                     }
+		    console.log(txbuilder)
                 }
                 else {
                     showErrororSuccess.text("You do not have enough " + name + " to send that amount.")
@@ -472,7 +439,7 @@ function validateAddress(address) {
     }
 }
 
-async function getDecimals() {
+async function getTokens() {
     const data = await Promise.resolve($.ajax({
         url: api + "/balance/" + address,
         dataType: 'json',

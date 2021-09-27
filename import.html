@@ -44,14 +44,43 @@
         </li>
     </ul>
 
-    <div class="importShow container text-center" style="padding-top: 5px; padding-bottom: 5px;">
-        <input type="text" class="form-control docs-input" id="wifInput" placeholder="AokChain WIF">
-    </div>
-    <div class="container text-center">
-        <button class="btn btn-primary" id="wifImport" style="width: 100%;">Import WIF</button>
-        <div class="legacyShow">
-            <span id="legacy">Legacy address:</span> <span id="showLegacy"></span>
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs" style="margin-top: 5px; margin-bottom: 5px;">
+                <li class="nav-item mr-2">
+                    <a class="nav-link active" data-toggle="tab" href="#importWIF">Import WIF</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#importSeed">Import Seed</a>
+                </li> 
+            </ul>
         </div>
+        <div class="card-body">
+            <div class="tab-content">
+                <div class="tab-pane" id="importWIF">
+                    <div class="importShow container text-center" style="padding-top: 5px; padding-bottom: 5px;">
+                        <input type="text" class="form-control docs-input" id="wifInput" placeholder="AokChain WIF">
+                    </div>
+                    <div class="container text-center">
+                        <button class="btn btn-primary" id="wifImport" style="width: 100%;">Import WIF</button>
+                    </div>
+                </div>
+                <div class="tab-pane" id="importSeed">
+                    <div class="importShow container text-center" style="padding-top: 5px; padding-bottom: 5px;">
+                        <input type="text" class="form-control docs-input" id="seedInput" placeholder="AokChain seed">
+                    </div>
+                    <div class="container text-center">
+                        <button class="btn btn-primary" id="seedImport" style="width: 100%;">Import Seed</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container text-center">
+            <div class="legacyShow">
+                <span id="legacy">Legacy address:</span> <span id="showLegacy"></span>
+            </div>
+        </div>
+
     </div>
 </body>
 <footer class="mb-3" style="bottom: 0px;">
@@ -61,5 +90,7 @@
     </div>
 </footer>
 <script src="js/bitcoin.min.js"></script>
+<script src="js/bip39.min.js"></script>
+<script src="js/bip32.min.js"></script>
 <script src="js/import.js"></script>
 </html>

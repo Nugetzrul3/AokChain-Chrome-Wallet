@@ -28,18 +28,25 @@ var netconfig = {
     }
 }
 
+var path = "m/44'/0'/0'/"
+
 $("#generateAddress").click(function() {
-    var key = bitcoin.ECPair.makeRandom({'network': netconfig['network']})
-    var wif = key.toWIF()
+    //var key = bitcoin.ECPair.makeRandom({'network': netconfig['network']})
+    var mnemonic = bip39.generateMnemonic()
+    var seed = bip39.mnemonicToSeedSync(mnemonic)
+    var hdMaster = bitcoin.bip32.fromSeed(seed, netconfig['network'])
+    var childNode = hdMaster.derivePath(`${path}0`).derive(0)
 
-    address = bitcoin.payments.p2pkh({'pubkey': key.publicKey, 'network': netconfig['network']}).address
+    var address = bitcoin.payments.p2pkh({'pubkey': childNode.publicKey, 'network': netconfig['network']}).address
+
     $("#addressDisplay").text(address)
-    localStorage.setItem("address", address)
 
-    // Sets WIF key in local storage for sending
-    localStorage.setItem("wifKey", wif)
+    localStorage.setItem("address", address)
+    localStorage.setItem("wifKey", childNode.toWIF())
+
     // WIF key only showed once for security purposes
-    $("#wifDisplay").text(wif)
+    $("#wifDisplay").text(childNode.toWIF())
+    $("#seedDisplay").text(mnemonic)
 
     alert(alertmsg)
 

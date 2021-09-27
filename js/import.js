@@ -9,6 +9,8 @@ window.onload = function() {
     var href = "https://explorer.aok.network/#/address/" + getaddress
 
     $("#history").attr("href", href)
+
+    $("#importWIF").addClass('active')
 }
 
 var netconfig = {
@@ -57,6 +59,25 @@ $("#wifImport").click(function() {
     var href = "https://explorer.aok.network/#/address/" + getaddress
 
     $("#history").attr("href", href)
+})
+
+var path = "m/44'/0'/0'/"
+
+$("#seedImport").click(function() {
+    var words = $("#seedInput").val().split(" ")
+    if (words.length == 12) {
+        var seedInput = $("#seedInput").val()
+        var seed = bip39.mnemonicToSeedSync(seedInput)
+        var hdMaster = bitcoin.bip32.fromSeed(seed, netconfig['network'])
+        var childNode = hdMaster.derivePath(`${path}0`).derive(0)
+
+        var address = bitcoin.payments.p2pkh({'pubkey': childNode.publicKey, 'network': netconfig['network']}).address
+
+        localStorage.setItem("address", address)
+        localStorage.setItem("wifKey", childNode.toWIF())
+
+        $("#showLegacy").text(account.getChainAddress(0))
+    }
 })
 
 var lang = {
