@@ -125,7 +125,8 @@ function tokenBalance(amount, units) {
 var lang = {
     'en': {
         // Page text
-        'current-balance': "Current Balance:",
+        'balance-aok': "Balance AOK",
+        'balance-token': "Balance Tokens",
         'logoutreminder': {
             'part1': "Remember to",
             'logoutlink': "Logout",
@@ -145,7 +146,8 @@ var lang = {
 
     'fr': {
         // Page text
-        'current-balance': "Existant équilibre:",
+        'balance-aok': "Équilibre AOK",
+        'balance-token': "Équilibre Tokens",
         'logoutreminder': {
             'part1': "Se souvenir de",
             'logoutlink': "Se Déconnecter",
@@ -164,7 +166,8 @@ var lang = {
 
     'kr': {
         // Page text
-        'current-balance': "흘림글씨의 밸런스:",
+        'balance-aok': "밸런스 AOK",
+        'balance-token': "밸런스 Tokens",
         'logoutreminder': {
             'part1': "기억해",
             'logoutlink': "로그 아웃",
@@ -183,7 +186,8 @@ var lang = {
 
     'id': {
         // Page text
-        'current-balance': "Saldo Sekarang:",
+        'balance-aok': "Saldo AOK",
+        'balance-token': "Saldo Tokens",
         'logoutreminder': {
             'part1': "Ingat untuk",
             'logoutlink': "Keluar",
@@ -202,7 +206,8 @@ var lang = {
 
     'es': {
         // Page text
-        'current-balance': "Presente Saldo:",
+        'balance-aok': "Saldo AOK",
+        'balance-token': "Saldo Tokens",
         'logoutreminder': {
             'part1': "Recuerda a",
             'logoutlink': "Cerrar sesión",
@@ -221,7 +226,8 @@ var lang = {
 
     'ru': {
         // Page text
-        'current-balance': "современный Баланс:",
+        'balance-aok': "Баланс AOK",
+        'balance-token': "Баланс Tokens",
         'logoutreminder': {
             'part1': "Помните в",
             'logoutlink': "Выйти",
@@ -240,7 +246,8 @@ var lang = {
 
     'zh': {
         // Page text
-        'current-balance': "当前余额:",
+        'balance-aok': "余额 AOK",
+        'balance-token': "余额 Tokens",
         'logoutreminder': {
             'part1': "记得 至",
             'logoutlink': "登出",
@@ -259,7 +266,8 @@ var lang = {
 
     'ja': {
         // Page text
-        'current-balance': "電流 残高:",
+        'balance-aok': "残高 AOK",
+        'balance-token': "残高 Tokens",
         'logoutreminder': {
             'part1': "覚えて に",
             'logoutlink': "ログアウト",
@@ -280,7 +288,8 @@ var lang = {
 function setWalletInfoLang() {
     if (localStorage['lang'] == null) {
         // Page text
-        $("#current-balance").text(lang['en']['current-balance'])
+        $("#balance-aok").text(lang['en']['balance-aok'])
+        $("#balance-token").text(lang['en']['balance-token'])
         $("#part1").text(lang['en']['logoutreminder']['part1'])
         $("#logoutlink").text(lang['en']['logoutreminder']['logoutlink'])
         $("#part2").text(lang['en']['logoutreminder']['part2'])
@@ -296,7 +305,8 @@ function setWalletInfoLang() {
     }
     else {
         // Page text
-        $("#current-balance").text(lang[localStorage.getItem("lang")]['current-balance'])
+        $("#balance-aok").text(lang[localStorage.getItem("lang")]['balance-aok'])
+        $("#balance-token").text(lang[localStorage.getItem("lang")]['balance-token'])
         $("#part1").text(lang[localStorage.getItem("lang")]['logoutreminder']['part1'])
         $("#logoutlink").text(lang[localStorage.getItem("lang")]['logoutreminder']['logoutlink'])
         $("#part2").text(lang[localStorage.getItem("lang")]['logoutreminder']['part2'])

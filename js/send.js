@@ -765,8 +765,11 @@ function setSendPageLang() {
     if (localStorage['lang'] == null) {
         // Page Text
         $("#send-to").text(lang['en']['send-to'])
+        $("#send-to-token").text(lang['en']['send-to'])
         $("#amount-aok").text(lang['en']['amount-aok'])
+        $("#amount-token").text(lang['en']['amount-aok'])
         $("#sendTx").text(lang['en']['sendTx'])
+        $("#sendTokenTx").text(lang['en']['sendTx'])
         $("#part1").text(lang['en']['logoutreminder']['part1'])
         $("#logoutlink").text(lang['en']['logoutreminder']['logoutlink'])
         $("#part2").text(lang['en']['logoutreminder']['part2'])
@@ -785,8 +788,11 @@ function setSendPageLang() {
     else {
         // Page Text
         $("#send-to").text(lang[localStorage.getItem("lang")]['send-to'])
+        $("#send-to-token").text(lang[localStorage.getItem("lang")]['send-to'])
         $("#amount-aok").text(lang[localStorage.getItem("lang")]['amount-aok'])
+        $("#amount-token").text(lang[localStorage.getItem("lang")]['amount-aok'])
         $("#sendTx").text(lang[localStorage.getItem("lang")]['sendTx'])
+        $("#sendTokenTx").text(lang[localStorage.getItem("lang")]['sendTx'])
         $("#part1").text(lang[localStorage.getItem("lang")]['logoutreminder']['part1'])
         $("#logoutlink").text(lang[localStorage.getItem("lang")]['logoutreminder']['logoutlink'])
         $("#part2").text(lang[localStorage.getItem("lang")]['logoutreminder']['part2'])

@@ -66,6 +66,7 @@ var lang = {
         'addressTypeLabel': "Address type:",
         'your-address': "Your Address:",
         'your-wif': "Your WIF:",
+        'your-seed': "Your Seed:",
         'importantmsg': "IMPORTANT: Make sure you store your WIF key in a secure place before doing anything else",
         'alertmsg': "Address Generated Successfully",
         'logoutreminder': {
@@ -91,6 +92,7 @@ var lang = {
         'addressTypeLabel': "Adresse Catégorie:",
         'your-address': "Votre Adresse:",
         'your-wif': "Votre WIF:",
+        'your-seed': "Votre Seed:",
         'importantmsg': "IMPORTANT: Assurez-vous conserver votre WIF clé dans un sécurise endroit avant faire quelque chose autre",
         'alertmsg': "Adresse Généré Avec succès",
         'logoutreminder': {
@@ -115,6 +117,7 @@ var lang = {
         'addressTypeLabel': "주소를 유형:",
         'your-address': "너의 주소를:",
         'your-wif': "너의 WIF:",
+        'your-seed': "너의 Seed:",
         'importantmsg': "중대한: 하다 확실한 당신 저장되다 너의 WIF 열쇠 안에 튼튼한 곳 전에 하기 아무것도 그밖에",
         'alertmsg': "주소 생성됨 성공적으로",
         'logoutreminder': {
@@ -139,6 +142,7 @@ var lang = {
         'addressTypeLabel': "Tipe Alamat:",
         'your-address': "Anda Alamat:",
         'your-wif': "Anda WIF:",
+        'your-seed': "Anda Seed:",
         'importantmsg': "Penting: Yakinkan kamu menyimpan Anda WIF kunci di sebuah tempat yang aman sebelum perbuatan ada yang lain",
         'alertmsg': "Alamat Dihasilkan Berhasil",
         'logoutreminder': {
@@ -163,6 +167,7 @@ var lang = {
         'addressTypeLabel': "Tipo Dirección:",
         'your-address': "Tu alocución:",
         'your-wif': "Tu WIF:",
+        'your-seed': "Tu Seed:",
         'importantmsg': "Importante: Asegurarse tú almacenar Tu WIF llave en un seguro lugar antes de hacer Algo más",
         'alertmsg': "Alocución Generado Exitosamente",
         'logoutreminder': {
@@ -187,6 +192,7 @@ var lang = {
         'addressTypeLabel': "Адреса Тип:",
         'your-address': "Ваш Адреса:",
         'your-wif': "Ваш WIF:",
+        'your-seed': "Ваш Seed:",
         'importantmsg': "Важный: Убедитесь, что вы храните ваш ключ WIF в безопасном месте, прежде чем делать что-либо еще",
         'alertmsg': "Адрес Сформирован Успешно",
         'logoutreminder': {
@@ -211,6 +217,7 @@ var lang = {
         'addressTypeLabel': "地址类型:",
         'your-address': "你的地址:",
         'your-wif': "你的WIF:",
+        'your-seed': "你的 Seed:",
         'importantmsg': "重要: 在执行其他任何操作之前，请确保将WIF密钥存储在安全的地方",
         'alertmsg': "地址产生的成功",
         'logoutreminder': {
@@ -235,6 +242,7 @@ var lang = {
         'addressTypeLabel': "アドレス 形式:",
         'your-address': "きみの アドレス:",
         'your-wif': "きみの WIF:",
+        'your-seed': "きみの Seed:",
         'importantmsg': "重要: 他の作業を行う前に、WIFキーを安全な場所に保管してください。",
         'alertmsg': "住所 生成された 成功した",
         'logoutreminder': {
@@ -262,6 +270,7 @@ function setMainLang() {
         $("#addressTypeLabel").text(lang['en']['addressTypeLabel'])
         $("#your-address").text(lang['en']['your-address'])
         $("#your-wif").text(lang['en']['your-wif'])
+        $("#your-seed").text(lang['en']['your-seed'])
         $("#importantmsg").text(lang['en']['importantmsg'])
         $("#part1").text(lang['en']['logoutreminder']['part1'])
         $("#logoutlink").text(lang['en']['logoutreminder']['logoutlink'])
@@ -283,6 +292,7 @@ function setMainLang() {
         $("#addressTypeLabel").text(lang[localStorage.getItem("lang")]['addressTypeLabel'])
         $("#your-address").text(lang[localStorage.getItem("lang")]['your-address'])
         $("#your-wif").text(lang[localStorage.getItem("lang")]['your-wif'])
+        $("#your-seed").text(lang[localStorage.getItem("lang")]['your-seed'])
         $("#importantmsg").text(lang[localStorage.getItem("lang")]['importantmsg'])
         $("#part1").text(lang[localStorage.getItem("lang")]['logoutreminder']['part1'])
         $("#logoutlink").text(lang[localStorage.getItem("lang")]['logoutreminder']['logoutlink'])

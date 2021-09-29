@@ -26,8 +26,11 @@ var netconfig = {
     }
 }
 
-var alert1
-var alert2
+var alert_wif_success
+var alert_wif_invalid
+
+var alert_seed_success
+var alert_seed_invalid
 $("#wifImport").click(function() {
     // If the WIF Key is 51 or 52 character length, run import function
     if ($("#wifInput").val().length == 52 || $("#wifInput").val().length == 51) {
@@ -39,7 +42,7 @@ $("#wifImport").click(function() {
     
         var legacyadd = bitcoin.payments.p2pkh({'pubkey': wifKey.publicKey, 'network': netconfig['network']}).address
 
-        alert(alert1)
+        alert(alert_wif_success)
 
         // Only set bech32 address and WIF key
         localStorage.setItem("address", legacyadd)
@@ -48,8 +51,8 @@ $("#wifImport").click(function() {
         $("#showLegacy").text(legacyadd)
     }
     // Else show error
-    else if ($("#wifInput").val().length != 52 || $("#wifInput").val().length != 51){
-        alert(alert2)
+    else {
+        alert(alert_wif_invalid)
 
         $("#showLegacy").text('')
     }
@@ -73,20 +76,36 @@ $("#seedImport").click(function() {
 
         var address = bitcoin.payments.p2pkh({'pubkey': childNode.publicKey, 'network': netconfig['network']}).address
 
+        alert(alert_seed_success)
+
         localStorage.setItem("address", address)
         localStorage.setItem("wifKey", childNode.toWIF())
 
-        $("#showLegacy").text(account.getChainAddress(0))
+        $("#showLegacy").text(address)
     }
+    else {
+        alert(alert_seed_invalid)
+        
+        $("#showLegacy").text('')
+    }
+
+    var getaddress = localStorage.getItem("address")
+
+    var href = "https://explorer.aok.network/#/address/" + getaddress
+
+    $("#history").attr("href", href)
 })
 
 var lang = {
     'en': {
         // Page text
         'wifImport': "Import WIF",
+        'seedImport': "Import Seed",
         'legacy': "Legacy address:",
-        'alert1': "WIF Imported Successfully",
-        "alert2": "WIF Invalid",
+        'alert_wif_success': "WIF Imported Successfully",
+        "alert_wif_invalid": "WIF Invalid",
+        'alert_seed_success': "Seed Imported Successfully",
+        "alert_seed_invalid": "Seed is invalid",
         'logoutreminder': {
             'part1': "Remember to",
             'logoutlink': "Logout",
@@ -107,9 +126,12 @@ var lang = {
     'fr': {
         // Page text
         'wifImport': "Importer WIF",
+        'seedImport': "Importer Seed",
         'legacy': "Legacy Adresse:",
-        'alert1': "WIF Importé Succès",
-        "alert2": "WIF invalide",
+        'alert_wif_success': "WIF Importé Succès",
+        "alert_wif_invalid": "WIF invalide",
+        'alert_seed_success': "Semences importées avec succès",
+        "alert_seed_invalid": "La graine est invalide",
         'logoutreminder': {
             'part1': "Se souvenir de",
             'logoutlink': "Se Déconnecter",
@@ -129,9 +151,12 @@ var lang = {
     'kr': {
         // Page text
         'wifImport': "수입 WIF",
+        'seedImport': "수입 Seed",
         'legacy': "Legacy 주소를:",
-        'alert1': "WIF 수입품 성공적으로",
-        "alert2": "WIF 무효로 하는",
+        'alert_wif_success': "WIF 수입품 성공적으로",
+        "alert_wif_invalid": "WIF 무효로 하는",
+        'alert_seed_success': "종자를 성공적으로 가져왔습니다",
+        "alert_seed_invalid": "시드가 잘못되었습니다",
         'logoutreminder': {
             'part1': "기억해",
             'logoutlink': "로그 아웃",
@@ -151,9 +176,12 @@ var lang = {
     'id': {
         // Page text
         'wifImport': "Impor WIF",
+        'seedImport': "Impor Seed",
         'legacy': "Legacy Alamat:",
-        'alert1': "WIF yg diimpor Berhasil",
-        "alert2": "WIF batal",
+        'alert_wif_success': "WIF yg diimpor Berhasil",
+        "alert_wif_invalid": "WIF batal",
+        'alert_seed_success': "Benih Berhasil Diimpor",
+        "alert_seed_invalid": "Benih tidak valid",
         'logoutreminder': {
             'part1': "Ingat untuk",
             'logoutlink': "Keluar",
@@ -173,9 +201,12 @@ var lang = {
     'es': {
         // Page text
         'wifImport': "Importar WIF",
+        'seedImport': "Importar Seed",
         'legacy': "Legacy Alocución:",
-        'alert1': "WIF Importado Exitosamente",
-        "alert2": "WIF inválido",
+        'alert_wif_success': "WIF Importado Exitosamente",
+        "alert_wif_invalid": "WIF inválido",
+        'alert_seed_success': "Semilla importada con éxito",
+        "alert_seed_invalid": "La semilla no es válida",
         'logoutreminder': {
             'part1': "Recuerda a",
             'logoutlink': "Cerrar sesión",
@@ -194,10 +225,13 @@ var lang = {
 
     'ru': {
         // Page text
-        'wifImport': "Импорт WIF ключа",
+        'wifImport': "Импортиране на WIF",
+        'seedImport': "Импортиране на Seed",
         'legacy': "Legacy адрес:",
-        'alert1': "WIF ключ успешно импортирован",
-        "alert2": "Недействительный WIF",
+        'alert_wif_success': "WIF ключ успешно импортирован",
+        "alert_wif_invalid": "Недействительный WIF",
+        'alert_seed_success': "Семена успешно импортированы",
+        "alert_seed_invalid": "Семя недействительно",
         'logoutreminder': {
             'part1': "Помните в",
             'logoutlink': "Выйти",
@@ -216,10 +250,13 @@ var lang = {
 
     'zh': {
         // Page text
-        'wifImport': "导入WIF",
+        'wifImport': "导入 WIF",
+        'seedImport': "导入 Seed",
         'legacy': "Legacy地址:",
-        'alert1': "导入WIF地址成功",
-        "alert2": "无效的WIF",
+        'alert_wif_success': "导入WIF地址成功",
+        "alert_wif_invalid": "无效的WIF",
+        'alert_seed_success': "种子导入成功",
+        "alert_seed_invalid": "种子无效",
         'logoutreminder': {
             'part1': "记得 至",
             'logoutlink': "登出",
@@ -239,9 +276,12 @@ var lang = {
     'ja': {
         // Page text
         'wifImport': "インポート WIF",
+        'seedImport': "インポート Seed",
         'legacy': "Legacy 住所:",
-        'alert1': "WIF 舶来 成功した",
-        "alert2": "WIF 病弱な",
+        'alert_wif_success': "WIF 舶来 成功した",
+        "alert_wif_invalid": "WIF 病弱な",
+        'alert_seed_success': "シードが正常にインポートされました",
+        "alert_seed_invalid": "シードが無効です",
         'logoutreminder': {
             'part1': "覚えて に",
             'logoutlink': "ログアウト",
@@ -264,11 +304,16 @@ function setImportLang() {
         // Page text
         $("#legacy").text(lang['en']['legacy'])
         $("#wifImport").text(lang['en']['wifImport'])
+        $("#seedImport").text(lang['en']['seedImport'])
+        $("#import-wif").text(lang['en']['wifImport'])
+        $("#import-seed").text(lang['en']['seedImport'])
         $("#part1").text(lang['en']['logoutreminder']['part1'])
         $("#logoutlink").text(lang['en']['logoutreminder']['logoutlink'])
         $("#part2").text(lang['en']['logoutreminder']['part2'])
-        alert1 = lang['en']['alert1']
-        alert2 = lang['en']['alert2']
+        alert_wif_success = lang['en']['alert_wif_success']
+        alert_wif_invalid = lang['en']['alert_wif_invalid']
+        alert_seed_success = lang['en']['alert_seed_success']
+        alert_seed_invalid = lang['en']['alert_seed_invalid']
 
         // Tab text
         $("#create-wallet").text(lang['en']['create-wallet'])
@@ -283,11 +328,16 @@ function setImportLang() {
         // Page text
         $("#legacy").text(lang[localStorage.getItem("lang")]['legacy'])
         $("#wifImport").text(lang[localStorage.getItem("lang")]['wifImport'])
+        $("#seedImport").text(lang[localStorage.getItem("lang")]['seedImport'])
+        $("#import-wif").text(lang[localStorage.getItem("lang")]['wifImport'])
+        $("#import-seed").text(lang[localStorage.getItem("lang")]['seedImport'])
         $("#part1").text(lang[localStorage.getItem("lang")]['logoutreminder']['part1'])
         $("#logoutlink").text(lang[localStorage.getItem("lang")]['logoutreminder']['logoutlink'])
         $("#part2").text(lang[localStorage.getItem("lang")]['logoutreminder']['part2'])
-        alert1 = lang[localStorage.getItem("lang")]['alert1']
-        alert2 = lang[localStorage.getItem("lang")]['alert2']
+        alert_wif_success = lang[localStorage.getItem("lang")]['alert_wif_success']
+        alert_wif_invalid = lang[localStorage.getItem("lang")]['alert_wif_invalid']
+        alert_seed_success = lang[localStorage.getItem("lang")]['alert_seed_success']
+        alert_seed_invalid = lang[localStorage.getItem("lang")]['alert_seed_invalid']
 
         // Tab text
         $("#create-wallet").text(lang[localStorage.getItem("lang")]['create-wallet'])
