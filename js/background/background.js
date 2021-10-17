@@ -36,8 +36,13 @@ chrome.webNavigation.onCompleted.addListener(function(details) {
         localStorage.setItem("extensionID", extensionid)
 
         setTimeout(() => {
-            document.getElementsByClassName("qrcode-container")[0].getElementsByTagName("a")[0].target = ""
-            document.getElementsByClassName("qrcode-container")[0].getElementsByTagName("a")[0].setAttribute("onclick", "connectWallet()")
+            var a_list = document.getElementsByTagName("a")
+            for (const a of a_list) {
+                if (a.href.includes("aok://")) {
+                    a.target = ""
+                    a.setAttribute("onclick", "connectWallet()")
+                }
+            }
         }, 2000)
         
     }
