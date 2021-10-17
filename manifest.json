@@ -1,9 +1,11 @@
 {
     "name": "AOK Wallet Extension",
     "version": "1.0.2",
-    "manifest_version": 2,
+    "manifest_version": 3,
+    "permissions": ["webNavigation", "activeTab", "scripting", "storage"],
+    "host_permissions": [ "*://*/*"],
     "description": "Light Web Wallet for AokChain as a Chrome Extension.",
-    "browser_action": {
+    "action": {
         "default_popup": "overlay.html",
         "default_title": "AOK Wallet" ,
         "default_icon": "img/logo.png"
@@ -11,5 +13,24 @@
     "icons": {
         "48": "img/icon48.png",
         "128": "img/icon128.png"
+    },
+    "background": {
+        "service_worker": "js/background/background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://swap.codepillow.io/*"],
+            "run_at": "document_end",
+            "js": ["js/background/cs.js"]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": ["js/background/connect.js"],
+            "matches": ["https://swap.codepillow.io/*"]
+        }
+    ],
+    "externally_connectable": {
+        "matches": ["https://swap.codepillow.io/*"]
     }
 }

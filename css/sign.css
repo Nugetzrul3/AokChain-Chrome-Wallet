@@ -1,0 +1,22 @@
+#footer form button {
+    margin: 10px;
+    width: 73px;
+    height: 34px;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+textarea {
+    resize: none;
+    background-color: gray;
+}
+
+#icon {
+    width: 24px;
+    height: 24px;
+}

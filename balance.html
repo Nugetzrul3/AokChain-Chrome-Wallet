@@ -10,8 +10,8 @@
     <link href="css/entypo.css" rel="stylesheet">
 
     <!--JS-->
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/lib/jquery-3.2.1.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
 
     <title>Document</title>
 </head>
@@ -66,7 +66,7 @@
                     <div class="balanceDisplay text-center">
                         <span id="currentBalance">loading...</span>
                         <p></p>
-                        <div id="sugarqr" style="display: flex; justify-content: center; text-align: center;"></div>
+                        <div id="aokqr" style="display: flex; justify-content: center; text-align: center;"></div>
                     </div>
                 </div>
                 <div class="tab-pane" id="balanceToken">
@@ -104,6 +104,9 @@
     </div>
 </footer>
 <!--Wallet Code-->
-<script src="js/qrcode.min.js"></script>
-<script src="js/wallet.js"></script>
+<script src="js/lib/qrcode.min.js"></script>
+<script src="js/wallet/utils.js"></script>
+<script src="js/wallet/config.js"></script>
+<script src="js/extension/lang.js"></script>
+<script src="js/extension/balance.js"></script>
 </html>
