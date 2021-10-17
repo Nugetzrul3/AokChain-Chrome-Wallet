@@ -17,7 +17,7 @@ chrome.runtime.onMessageExternal.addListener(function(message, sender) {
     if (sender.url != "https://swap.codepillow.io/") {
         return
     }
-    console.log(message)
+    
     if (message.link) {
         if (!message.update) {
             console.log('test')
